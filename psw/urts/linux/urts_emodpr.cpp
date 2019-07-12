@@ -36,6 +36,7 @@
 typedef struct ms_emodpr_ocall_t {
     size_t ms_addr;
     size_t ms_size;
+    uint64_t ms_pte_perms;
     uint64_t ms_epcm_perms;
 } ms_trim_emodpr_ocall_t;
 
@@ -60,7 +61,7 @@ sgx_status_t ocall_emodpr(void* pms)
         }
     }
 
-    ret = mprotect((void*)ms->ms_addr, ms->ms_size, (int)ms->ms_epcm_perms);
+    ret = mprotect((void*)ms->ms_addr, ms->ms_size, (int)ms->ms_pte_perms);
     if(ret != 0)
     {
         return SGX_ERROR_UNEXPECTED;
